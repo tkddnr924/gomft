@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/t9t/gomft/binutil"
-	"github.com/t9t/gomft/utf16"
+	"github.com/tkddnr924/gomft/binutil"
+	"github.com/tkddnr924/gomft/utf16"
 )
 
 var (
@@ -344,8 +344,15 @@ func ParseIndexEntries(b []byte) ([]IndexEntry, error) {
 		}
 
 		flags := r.Uint32(0x0C)
-		pointsToSubNode := flags&0b1 != 0
-		isLastEntryInNode := flags&0b10 != 0
+
+		// this code is not working for golang 1.10
+		// pointsToSubNode := flags&0b1 != 0
+		pointsToSubNode := flags&uint32(byte(0x01)) != 0
+
+		// this code is not working for golang 1.10
+		// isLastEntryInNode := flags&0b10 != 0
+		isLastEntryInNode := flags&uint32(byte(0x02)) != 0
+
 		contentLength := int(r.Uint16(0x0A))
 
 		fileName := FileName{}

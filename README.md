@@ -3,6 +3,8 @@
 gomft is Go library to parse the Master File Table (MFT) of NFTS volumes. `mftdump` is a utility to dump the MFT of a
 mounted volume to a file.
 
+Modify for Go 1.10 (Windows XP)
+
 Example usage reading MFT records from a file that was previously dumped with a record size of 1KB:
 
 ```go

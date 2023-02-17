@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/t9t/gomft/bootsect"
-	"github.com/t9t/gomft/fragment"
-	"github.com/t9t/gomft/mft"
+	"github.com/tkddnr924/gomft/bootsect"
+	"github.com/tkddnr924/gomft/fragment"
+	"github.com/tkddnr924/gomft/mft"
 )
 
 const supportedOemId = "NTFS    "

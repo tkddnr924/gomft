@@ -7,7 +7,7 @@ package bootsect
 import (
 	"fmt"
 
-	"github.com/t9t/gomft/binutil"
+	"github.com/tkddnr924/gomft/binutil"
 )
 
 // BootSector represents the parsed data of an NTFS boot sector. The OemId should typically be "NTFS    " ("NTFS"
@@ -39,7 +39,7 @@ func Parse(data []byte) (BootSector, error) {
 	if sectorsPerCluster < 0 {
 		// Quoth Wikipedia: The number of sectors in a cluster. If the value is negative, the amount of sectors is 2
 		// to the power of the absolute value of this field.
-		sectorsPerCluster = 1 << -sectorsPerCluster
+		sectorsPerCluster = 1 << uint(-sectorsPerCluster) // modify for golang 1.10
 	}
 	bytesPerCluster := bytesPerSector * sectorsPerCluster
 	return BootSector{
@@ -66,7 +66,7 @@ func bytesOrClustersToBytes(b byte, bytesPerCluster int) int {
 	// (0xF6 = -10 → 210 = 1024).
 	i := int(int8(b))
 	if i < 0 {
-		return 1 << -i
+		return 1 << uint(-i) // modify for golang 1.10
 	}
 	return i * bytesPerCluster
 }

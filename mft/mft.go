@@ -17,9 +17,9 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"github.com/t9t/gomft/binutil"
-	"github.com/t9t/gomft/fragment"
-	"github.com/t9t/gomft/utf16"
+	"github.com/tkddnr924/gomft/binutil"
+	"github.com/tkddnr924/gomft/fragment"
+	"github.com/tkddnr924/gomft/utf16"
 )
 
 var (
@@ -413,11 +413,19 @@ func padTo(data []byte, length int) []byte {
 		return result
 	}
 	copy(result, data)
-	if data[len(data)-1]&0b10000000 == 0b10000000 {
+
+	// modify for golang 1.10
+	if data[len(data)-1]&byte(0x80) == byte(0x80) {
 		for i := len(data); i < length; i++ {
 			result[i] = 0xFF
 		}
 	}
+
+	// if data[len(data)-1]&0b10000000 == 0b10000000 {
+	// 	for i := len(data); i < length; i++ {
+	// 		result[i] = 0xFF
+	// 	}
+	// }
 	return result
 }
 
